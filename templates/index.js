@@ -5,11 +5,12 @@ const Handlebars = require("handlebars");
 const prettier = require("prettier");
 
 module.exports.processTemplate = (template, swaggerData, outputDir) => {
+    console.log(swaggerData);
   return new Promise((resolve, reject) => {
     console.log(`Processing template ${template.name}`);
     let templateName = template.name.replace(".handlebars", ".js");
     fs.readFile(template.path, "utf8").then((templateData) => {
-      if (template.name.indexOf("{{operationId}}">=0)) {
+      if (template.name.indexOf("{{operationId}}")>=0) {
         const templateWritePromises = [];
 
         if (swaggerData.allMethods && lodash.isArray(swaggerData.allMethods)) {
@@ -44,7 +45,7 @@ module.exports.processTemplate = (template, swaggerData, outputDir) => {
 
 const saveParsedTemplate = (data, filePath, templateData) => {
   return new Promise((resolve, reject) => {
-    console.log("Rendering template data");
+    console.log(`Rendering template data for ${filePath}`);
     const template = Handlebars.compile(templateData);
     const renderedData = template(data);
     const prettyData = prettier.format(renderedData,{parser:'babel'});
