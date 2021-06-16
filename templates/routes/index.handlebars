@@ -1,0 +1,9 @@
+{{#each allMethods}}
+const {{this.operationId}}Route = require("./{{this.operationId}}Route");
+{{/each}}
+
+module.exports={
+    {{#each allMethods}}
+    {{this.operationId}}Route,
+    {{/each}}
+}

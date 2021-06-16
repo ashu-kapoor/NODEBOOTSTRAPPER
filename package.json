@@ -1,0 +1,28 @@
+{
+  "name": "nodebootstrapper",
+  "version": "1.0.0",
+  "description": "Bootstrapper project to generate node server from swagger",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashu-kapoor/NODEBOOTSTRAPPER.git"
+  },
+  "author": "Ashutosh Kapoor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ashu-kapoor/NODEBOOTSTRAPPER/issues"
+  },
+  "homepage": "https://github.com/ashu-kapoor/NODEBOOTSTRAPPER#readme",
+  "dependencies": {
+    "@apidevtools/swagger-parser": "^10.0.2",
+    "handlebars": "^4.7.7",
+    "loadash": "^1.0.0",
+    "lodash": "^4.17.21",
+    "prettier": "^2.3.1",
+    "yaml": "^1.10.2",
+    "yargs": "^17.0.1"
+  }
+}
