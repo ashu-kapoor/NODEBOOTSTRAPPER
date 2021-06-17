@@ -13,7 +13,7 @@ module.exports.generateRoutes = (opts) => {
     checkPathExist(output).then(
       (res) => {
         const swaggerPromise = loadSwagger(swagger).then(verifiedSwagger=>{
-            return getRoutesFromSwagger(verifiedSwagger);
+            return getRoutesFromSwagger(verifiedSwagger, apiName);
         },reject);
         const templatesPromise = loadTemplates(
           path.join("templates", "routes")

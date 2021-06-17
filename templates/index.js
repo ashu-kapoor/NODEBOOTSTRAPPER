@@ -4,8 +4,13 @@ const path = require("path");
 const Handlebars = require("handlebars");
 const prettier = require("prettier");
 
-Handlebars.registerHelper('and', function(object) {
-  var result = '&&';
+Handlebars.registerHelper('ifcond', function(v1,v2) {
+  let result;
+  if(v1){
+    result =v1;
+  }else{
+    result = v2;
+  }
   return new Handlebars.SafeString(result);
 });
 
@@ -57,7 +62,14 @@ const saveParsedTemplate = (data, filePath, templateData) => {
     console.log(`Rendering template data for ${filePath}`);
     const template = Handlebars.compile(templateData);
     const renderedData = template(data);
-    const prettyData = prettier.format(renderedData,{parser:'babel'});
+    
+    let prettyData = renderedData;
+
+    if(filePath.indexOf("package.json")<0){
+      //do for js files
+      prettyData = prettier.format(renderedData,{parser:'babel'});
+    }
+
     fs.writeFile(filePath, prettyData).then(resolve,err=>{
         console.log(`Writing failed ${filePath}`);
     })

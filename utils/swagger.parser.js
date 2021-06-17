@@ -1,5 +1,5 @@
 //Parse swagger to get routes to be consumed by template
-module.exports.getRoutesFromSwagger = (verifiedSwagger) => {
+module.exports.getRoutesFromSwagger = (verifiedSwagger, passedAPIName) => {
   const parsedSwagger = { paths: getPathsFromSwagger(verifiedSwagger.paths) };
   const allMethods = [];
   const basePath = verifiedSwagger.basePath;
@@ -14,7 +14,7 @@ module.exports.getRoutesFromSwagger = (verifiedSwagger) => {
   parsedSwagger.allMethods = allMethods;
   //add title to generate api name if not passed
   parsedSwagger.apiName = verifiedSwagger.info.title.split(" ").join("-");
-
+  parsedSwagger.passedAPIName = passedAPIName;
 
   return { verifiedSwagger, parsedSwagger };
 };
