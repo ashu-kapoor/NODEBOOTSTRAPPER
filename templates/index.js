@@ -4,11 +4,20 @@ const path = require("path");
 const Handlebars = require("handlebars");
 const prettier = require("prettier");
 
+Handlebars.registerHelper('and', function(object) {
+  var result = '&&';
+  return new Handlebars.SafeString(result);
+});
+
 module.exports.processTemplate = (template, swaggerData, outputDir) => {
-    console.log(swaggerData);
+
   return new Promise((resolve, reject) => {
     console.log(`Processing template ${template.name}`);
-    let templateName = template.name.replace(".handlebars", ".js");
+
+    let templateName = template.name.indexOf("json")>=1 ? 
+        template.name.replace(".handlebars","") 
+        : template.name.replace(".handlebars", ".js");
+        
     fs.readFile(template.path, "utf8").then((templateData) => {
       if (template.name.indexOf("{{operationId}}")>=0) {
         const templateWritePromises = [];

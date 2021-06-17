@@ -44,7 +44,7 @@ module.exports.generateRoutes = (opts) => {
                         );
                       });
                       Promise.all(templatePromises).then((res) => {
-                        resolve(output);
+                        resolve(parsedSwagger);
                       }, reject);
                   },reject);
             },reject);            
