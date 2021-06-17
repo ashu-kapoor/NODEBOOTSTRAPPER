@@ -27,7 +27,6 @@ const loadApp= (routes, commonMiddlewares, options={
     }, 
     dbConnectionPromise=null) =>{
 
-    //TODO: add swagger validation for requests
 
     if(!(isArray(routes) && routes.length>0)){
         throw new Error("Initialisation failed. Routes not defined");
