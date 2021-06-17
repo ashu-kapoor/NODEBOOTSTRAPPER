@@ -2,10 +2,11 @@
 module.exports.getRoutesFromSwagger = (verifiedSwagger) => {
   const parsedSwagger = { paths: getPathsFromSwagger(verifiedSwagger.paths) };
   const allMethods = [];
+  const basePath = verifiedSwagger.basePath;
   parsedSwagger.paths.forEach((m) => {
     //const parsedMethod = { ...m, routePath: updatePath(m.path) };
     m.methods.forEach(method=>{
-        const parsedMethod = { ...method, routePath: m.path };
+        const parsedMethod = { ...method, routePath: updatePath(m.path, basePath) };
         allMethods.push(parsedMethod);
     });
     
@@ -13,6 +14,8 @@ module.exports.getRoutesFromSwagger = (verifiedSwagger) => {
   parsedSwagger.allMethods = allMethods;
   //add title to generate api name if not passed
   parsedSwagger.apiName = verifiedSwagger.info.title.split(" ").join("-");
+
+
   return { verifiedSwagger, parsedSwagger };
 };
 
@@ -34,6 +37,7 @@ const getMethodsFromPath = (path, pathData) => {
   return methods;
 };
 
-const updatePath = (originalPath) => {
-  originalPath.replace(/({.*?})/g, (match) => match.replace(/{(.*)}/, ":$1"));
+const updatePath = (originalPath, basePath) => {
+    originalPath = originalPath.replace(/({.*?})/g, (match) => match.replace(/{(.*)}/, ":$1"));
+    return basePath+originalPath;
 };
