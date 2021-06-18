@@ -16,14 +16,21 @@ const routes = require('./routes');
 const routesArray = [
     {{#each allMethods}}
     {
-        method: routes.{{this.operationId}}Route,
+        method: routes.{{this.operationId}}Route.{{this.operationId}},
         validatorFn: null,
         routeSpecificMiddlewares: null
     },
     {{/each}}
 ];
 
-
+const options = {
+  useNoCache: true,
+  allowCORSOrigin: "*",
+  multiparserConfig: null,
+  port: 8080,
+  useJsonParser: true,
+  useUrlEncodedParser: false,
+};
 
 /**
  * @param {array} routesArray - routesArray to register

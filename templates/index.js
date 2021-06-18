@@ -11,7 +11,7 @@ Handlebars.registerHelper('ifcond', function(v1,v2) {
   }else{
     result = v2;
   }
-  return new Handlebars.SafeString(result);
+  return new Handlebars.SafeString(result.toLowerCase());
 });
 
 module.exports.processTemplate = (template, swaggerData, outputDir) => {

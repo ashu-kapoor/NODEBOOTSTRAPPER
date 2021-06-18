@@ -17,7 +17,7 @@ const nocache = require("nocache");
 const sanitizer = require("sanitizer");
 
 //Takes in routes, commonMiddlewares and Options and dbConnectionPromise
-const loadApp= (routes, commonMiddlewares, options={
+module.exports.loadApp= (routes, commonMiddlewares, options={
         useNoCache:true, 
         allowCORSOrigin:'*', 
         multiparserConfig:null, 
@@ -36,7 +36,7 @@ const loadApp= (routes, commonMiddlewares, options={
     const app = express();
     app.disable('x-powered-by');
     app.set('etag', false);
-    useNoCache && app.use(useNoCache);
+    useNoCache && app.use(nocache());
     useJsonParser && app.use(express.json());
     useUrlEncodedParser && app.use(express.urlencoded({
         extended: true
@@ -73,11 +73,14 @@ const loadApp= (routes, commonMiddlewares, options={
        route.method(app, route.routeSpecificMiddlewares, route.validatorFn )
     });
 
-    dbConnectionPromise.then(res=>{
-        app.listen(port);
-    }).catch(err=> console.log("Error connecting to DB"));
+    if(dbConnectionPromise){
+        dbConnectionPromise.then(res=>{
+            app.listen(port);
+        }).catch(err=> console.log("Error connecting to DB"));
+    }else{
+         app.listen(port);
+    }
+    
     
 
 };
-
-loadApp();
