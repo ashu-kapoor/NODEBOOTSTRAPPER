@@ -12,6 +12,7 @@ GIT LINK : https://github.com/ashu-kapoor/NODEBOOTSTRAPPER
 
 
 const { {{this.operationId}}Controller }= require('../controllers/{{this.operationId}}Controller');
+const lodash= require('lodash');
 
 module.exports.{{this.operationId}}= (app, middlewares, validator=null)=>{
     const middleWaresList = [];
